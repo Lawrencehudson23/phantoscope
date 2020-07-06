@@ -1,15 +1,21 @@
 import React from "react";
-import { Button } from "antd";
-import "antd/lib/button/style";
-import "./App.less";
+import { Switch, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
+
+import "./App.less";
+const PillowPage = () => (
+  <div>
+    <h1>Pillow Page</h1>
+  </div>
+);
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-      <h1>Create React Project with Ant Design and Less Support</h1>
-      <Button type="primary">Hi</Button>
+    <div>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/pillow" component={PillowPage} />
+      </Switch>
     </div>
   );
 }
