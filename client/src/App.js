@@ -1,20 +1,17 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
+import ShopPage from "./pages/ShopPage/ShopPage";
 
 import "./App.less";
-const PillowPage = () => (
-  <div>
-    <h1>Pillow Page</h1>
-  </div>
-);
 
 function App() {
   return (
     <div>
+      <Link />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/pillow" component={PillowPage} />
+        <Route path="/shop" component={ShopPage} />
       </Switch>
     </div>
   );
