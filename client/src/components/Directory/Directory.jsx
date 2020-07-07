@@ -32,14 +32,6 @@ const Directory = () => {
       id: 4,
       linkUrl: "",
     },
-    {
-      title: "New In Collections",
-      imageUrl:
-        "https://cdn.shopify.com/s/files/1/2781/9998/files/91nhndT_sTL._SL1500_800x.jpg?v=1530142556",
-      size: "large",
-      id: 5,
-      linkUrl: "",
-    },
   ]);
   return (
     <div className="directory-menu">
