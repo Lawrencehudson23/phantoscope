@@ -2,13 +2,13 @@ import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import ShopPage from "./pages/ShopPage/ShopPage";
-
 import "./App.less";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
     <div>
-      <Link />
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
