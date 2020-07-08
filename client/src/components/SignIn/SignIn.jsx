@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
+import { signInWithGoogle } from "../../firebase/firebase.utils.js";
 
+import "./SignIn.less";
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -44,45 +46,54 @@ const SignIn = () => {
     });
   };
   return (
-    <Form
-      onSubmit={handleSubmit}
-      className="sign-in"
-      {...layout}
-      name="nest-messages"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      validateMessages={validateMessages}
-    >
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={[{ type: "email", required: true }]}
-        value={email}
-        onChange={handleChange}
+    <div className="sign-in">
+      <h2>I already have an account</h2>
+      <span>Sign in with your email and password</span>
+      <Form
+        onSubmit={handleSubmit}
+        {...layout}
+        name="nest-messages"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        validateMessages={validateMessages}
       >
-        <Input />
-      </Form.Item>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[{ type: "email", required: true }]}
+          value={email}
+          onChange={handleChange}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true }]}
-        value={password}
-        onChange={handleChange}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true }]}
+          value={password}
+          onChange={handleChange}
+        >
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit">
+            Sign In
+          </Button>
+        </Form.Item>
+
+        <Form.Item {...tailLayout}>
+          <Button type="primary" onClick={signInWithGoogle}>
+            Sign in With Google
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 
