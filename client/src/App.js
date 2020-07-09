@@ -12,17 +12,27 @@ function App() {
     currentUser: null,
   });
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
-      createUserProfileDocument(user);
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-      setState({
-        currentUser: user,
-      });
-      console.log(user);
+        userRef.onSnapshot((snapShot) => {
+          setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          });
+          console.log(state);
+        });
+      } else {
+        setState({ currentUser: userAuth });
+      }
     });
     return () => {
       unsubscribeFromAuth();
     };
+    // eslint-disable-next-line
   }, []);
   return (
     <div>

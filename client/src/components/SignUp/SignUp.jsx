@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils.js";
+import "./SignUp.less";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
-import "./SignIn.less";
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -19,12 +19,14 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const SignIn = () => {
+const SignUp = () => {
   const [userCredentials, setUserCredentials] = useState({
+    displayName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
-  const { email, password } = userCredentials;
+  const { displayName, email, password, confirmPassword } = userCredentials;
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -33,31 +35,40 @@ const SignIn = () => {
   //   const onFinishFailed = (errorInfo) => {
   //     console.log("Failed:", errorInfo);
   //   };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserCredentials({
       [name]: value,
     });
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    try {
-      auth.signInWithEmailAndPassword(email, password);
-
-      setUserCredentials({
-        email: "",
-        password: "",
-      });
-    } catch (error) {
-      console.log(error);
+    if (password !== confirmPassword) {
+      alert("password don't match");
+      return;
     }
+    try {
+      const { user } = auth.createUserWithEmailAndPassword(email, password);
+
+      createUserProfileDocument(user, { displayName });
+    } catch (error) {
+      console.error(error);
+    }
+    setUserCredentials({
+      displayName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
+
   return (
-    <div className="sign-in">
-      <h2>I already have an account</h2>
-      <span>Sign in with your email and password</span>
+    <div className="sign-up">
+      <h2 className="title">I do not have an account</h2>
+      <span>Sign up with your email and password</span>
+
       <Form
         onSubmit={handleSubmit}
         {...layout}
@@ -66,6 +77,15 @@ const SignIn = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
+        <Form.Item
+          label="Display Name"
+          name="displayName"
+          rules={[{ required: true }]}
+          value={displayName}
+          onChange={handleChange}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item
           label="Email"
           name="email"
@@ -86,19 +106,23 @@ const SignIn = () => {
           <Input.Password />
         </Form.Item>
 
+        <Form.Item
+          label="Confirm Password"
+          name="confirmPassword"
+          rules={[{ required: true }]}
+          value={confirmPassword}
+          onChange={handleChange}
+        >
+          <Input.Password />
+        </Form.Item>
+
         <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>agree</Checkbox>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
-            Sign In
-          </Button>
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button type="primary" onClick={signInWithGoogle}>
-            Sign in With Google
+            Sign Up
           </Button>
         </Form.Item>
       </Form>
@@ -106,4 +130,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
