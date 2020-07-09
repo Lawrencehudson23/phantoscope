@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CollectionPreview from "../../components/CollectionPreview/CollectionPreview";
 
 const ShopPage = () => {
+  //eslint-disable-next-line
   const [collections, setCollections] = useState([
     {
       id: 1,

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import MenuItem from "../MenuItem/MenuItem";
 
-import "./index.less";
+import "./Directory.less";
 const Directory = () => {
+  // eslint-disable-next-line
   const [sections, setSections] = useState([
     {
       title: "Pillow Cover",

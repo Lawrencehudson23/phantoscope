@@ -8,8 +8,10 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 const validateMessages = {
+  // eslint-disable-next-line
   required: "${label} is required!",
   types: {
+    // eslint-disable-next-line
     email: "${label} is not validate email!",
   },
 };
@@ -28,9 +30,9 @@ const SignIn = () => {
     console.log("Success:", values);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  //   const onFinishFailed = (errorInfo) => {
+  //     console.log("Failed:", errorInfo);
+  //   };
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserCredentials({

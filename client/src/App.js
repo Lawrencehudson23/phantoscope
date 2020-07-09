@@ -5,13 +5,16 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import "./App.less";
 import Header from "./components/Header/Header";
 import SignInSignUpPage from "./pages/SignInSignUpPage/SignInSignUpPage";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 function App() {
+  // eslint-disable-next-line
   const [state, setState] = useState({
     currentUser: null,
   });
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
+      createUserProfileDocument(user);
+
       setState({
         currentUser: user,
       });

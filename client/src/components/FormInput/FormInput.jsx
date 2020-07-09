@@ -6,9 +6,9 @@ const FormInput = ({handleChange,lable,...otherProps}) => {
         <input className="form-input"
         onChange={handleChange}{...otherProps}
         />
-        {label ? 
+        {
         (
-            
+
 
         )}
             
