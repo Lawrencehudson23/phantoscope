@@ -6,27 +6,22 @@ import "./App.less";
 import Header from "./components/Header/Header";
 import SignInSignUpPage from "./pages/SignInSignUpPage/SignInSignUpPage";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/userAction";
 function App() {
-  // eslint-disable-next-line
-  const [state, setState] = useState({
-    currentUser: null,
-  });
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
-          setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data(),
-            },
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
           });
-          console.log(state);
         });
       } else {
-        setState({ currentUser: userAuth });
+        setCurrentUser(userAuth);
       }
     });
     return () => {
@@ -46,4 +41,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
