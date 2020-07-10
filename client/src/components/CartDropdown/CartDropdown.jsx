@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "antd";
 import "./CartDropdown.less";
+import CustomButton from "../CustomButton/CustomButton";
 const CartDropdown = () => {
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        <Button type="primary">Go to Checkout</Button>
+        <CustomButton type="primary">Go to Checkout</CustomButton>
       </div>
     </div>
   );

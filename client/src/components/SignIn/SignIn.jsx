@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Checkbox } from "antd";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils.js";
 
 import "./SignIn.less";
+import CustomButton from "../CustomButton/CustomButton.jsx";
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -91,15 +92,13 @@ const SignIn = () => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            Sign In
-          </Button>
+          <CustomButton type="submit">Sign In</CustomButton>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" onClick={signInWithGoogle}>
+          <CustomButton onClick={signInWithGoogle} isGoogleSignIn type="button">
             Sign in With Google
-          </Button>
+          </CustomButton>
         </Form.Item>
       </Form>
     </div>

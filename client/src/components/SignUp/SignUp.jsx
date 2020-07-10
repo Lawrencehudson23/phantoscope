@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Checkbox } from "antd";
 import "./SignUp.less";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import CustomButton from "../CustomButton/CustomButton";
 
 const layout = {
   labelCol: { span: 8 },
@@ -121,9 +122,9 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
+          <CustomButton type="primary" htmlType="submit">
             Sign Up
-          </Button>
+          </CustomButton>
         </Form.Item>
       </Form>
     </div>
