@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Form, Input, Checkbox } from "antd";
 import "./SignUp.less";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
-import CustomButton from "../CustomButton/CustomButton";
+
+import { Button } from "antd";
 
 const layout = {
   labelCol: { span: 8 },
@@ -55,7 +56,7 @@ const SignUp = () => {
 
       createUserProfileDocument(user, { displayName });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
     setUserCredentials({
       displayName: "",
@@ -85,7 +86,13 @@ const SignUp = () => {
           value={displayName}
           onChange={handleChange}
         >
-          <Input />
+          <Input
+            label="Display Name"
+            name="displayName"
+            rules={[{ required: true }]}
+            value={displayName}
+            onChange={handleChange}
+          />
         </Form.Item>
         <Form.Item
           label="Email"
@@ -94,7 +101,13 @@ const SignUp = () => {
           value={email}
           onChange={handleChange}
         >
-          <Input />
+          <Input
+            label="Email"
+            name="email"
+            rules={[{ type: "email", required: true }]}
+            value={email}
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item
@@ -104,7 +117,13 @@ const SignUp = () => {
           value={password}
           onChange={handleChange}
         >
-          <Input.Password />
+          <Input.Password
+            label="Password"
+            name="password"
+            rules={[{ required: true }]}
+            value={password}
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item
@@ -114,7 +133,13 @@ const SignUp = () => {
           value={confirmPassword}
           onChange={handleChange}
         >
-          <Input.Password />
+          <Input.Password
+            label="Confirm Password"
+            name="confirmPassword"
+            rules={[{ required: true }]}
+            value={confirmPassword}
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item {...tailLayout} name="remember" valuePropName="checked">
@@ -122,9 +147,9 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <CustomButton type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit">
             Sign Up
-          </CustomButton>
+          </Button>
         </Form.Item>
       </Form>
     </div>

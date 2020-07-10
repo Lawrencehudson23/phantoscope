@@ -3,7 +3,8 @@ import { Form, Input, Checkbox } from "antd";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils.js";
 
 import "./SignIn.less";
-import CustomButton from "../CustomButton/CustomButton.jsx";
+import { Button } from "antd";
+
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -92,13 +93,15 @@ const SignIn = () => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <CustomButton type="submit">Sign In</CustomButton>
+          <Button type="primary" htmlType="submit">
+            Sign In
+          </Button>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <CustomButton onClick={signInWithGoogle} isGoogleSignIn type="button">
+          <Button type="primary" onClick={signInWithGoogle} htmlType="button">
             Sign in With Google
-          </CustomButton>
+          </Button>
         </Form.Item>
       </Form>
     </div>

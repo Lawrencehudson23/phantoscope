@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addItem } from "../../redux/cart/cartAction";
-import "./index.less";
-import CustomButton from "../CustomButton/CustomButton";
+import "./CollectionItem.less";
+
+import { Button } from "antd";
 const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
 
@@ -13,9 +14,7 @@ const CollectionItem = ({ item, addItem }) => {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <CustomButton onClick={() => addItem(item)} inverted>
-        add to cart
-      </CustomButton>
+      <Button onClick={() => addItem(item)}>add to cart</Button>
     </div>
   );
 };
