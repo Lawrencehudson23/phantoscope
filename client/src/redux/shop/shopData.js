@@ -1,5 +1,5 @@
-const SHOP_DATA = [
-  {
+const SHOP_DATA = {
+  throwpillowcover: {
     id: 1,
     title: "Throw Pillow Cover",
     routeName: "throwpillowcover",
@@ -62,7 +62,7 @@ const SHOP_DATA = [
       },
     ],
   },
-  {
+  placemat: {
     id: 2,
     title: "PlaceMat",
     routeName: "placemat",
@@ -125,7 +125,7 @@ const SHOP_DATA = [
       },
     ],
   },
-  {
+  tablerunner: {
     id: 17,
     title: "Table Runner",
     routeName: "tablerunner",
@@ -160,7 +160,7 @@ const SHOP_DATA = [
       },
     ],
   },
-  {
+  apron: {
     id: 4,
     title: "Apron",
     routeName: "apron",
@@ -188,6 +188,6 @@ const SHOP_DATA = [
       },
     ],
   },
-];
+};
 
 export default SHOP_DATA;
