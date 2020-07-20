@@ -68,8 +68,11 @@ const SignUp = () => {
 
   return (
     <div className="sign-up">
-      <h2 className="title">I do not have an account</h2>
-      <span>Sign up with your email and password</span>
+      <p>
+        Create an account and benefit from a more personal shopping experience,
+        and quicker online checkout.
+      </p>
+      <p>All fields are mandatory.</p>
 
       <Form
         onSubmit={handleSubmit}
