@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { Form, Input, Checkbox } from "antd";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils.js";
+import { connect } from "react-redux";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../redux/user/userAction";
+import {
+  SignInContainer,
+  SignInTitle,
+  ButtonsBarContainer,
+} from "./SignIn.styles.jsx";
+import FormInput from "../FormInput/FormInput";
+import CustomButton from "../CustomButton/CustomButton";
 
-import "./SignIn.less";
-import { Button } from "antd";
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 const validateMessages = {
   // eslint-disable-next-line
   required: "${label} is required!",
@@ -57,55 +61,46 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="sign-in">
-      <h2>I already have an account</h2>
-      <span>Sign in with your email and password</span>
-      <Form
-        onSubmit={handleSubmit}
-        {...layout}
-        name="nest-messages"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        validateMessages={validateMessages}
-      >
-        <Form.Item
-          label="Email"
+    <SignInContainer>
+      <SignInTitle>Welcome back.</SignInTitle>
+      <p>Sign in with your email and password.</p>
+      <form onSubmit={handleSubmit}>
+        <FormInput
           name="email"
-          rules={[{ type: "email", required: true }]}
+          type="email"
+          handleChange={handleChange}
           value={email}
-          onChange={handleChange}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
+          label="email"
+          validateMessages={validateMessages}
+          required
+        />
+        <FormInput
           name="password"
-          rules={[{ required: true }]}
+          type="password"
           value={password}
-          onChange={handleChange}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            Sign In
-          </Button>
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button type="primary" onClick={signInWithGoogle} htmlType="button">
-            Sign in With Google
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+          handleChange={handleChange}
+          label="password"
+          validateMessages={validateMessages}
+          required
+        />
+        <ButtonsBarContainer>
+          <CustomButton type="submit"> Sign in </CustomButton>
+          <CustomButton
+            type="button"
+            onClick={googleSignInStart}
+            isGoogleSignIn
+          >
+            Sign in with Google
+          </CustomButton>
+        </ButtonsBarContainer>
+      </form>
+    </SignInContainer>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) =>
+    dispatch(emailSignInStart({ email, password })),
+});
 
-export default SignIn;
+export default connect(null, mapDispatchToProps)(SignIn);

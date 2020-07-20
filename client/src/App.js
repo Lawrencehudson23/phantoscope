@@ -7,35 +7,21 @@ import SignInSignUpPage from "./pages/SignInSignUpPage/SignInSignUpPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 import Header from "./components/Header/Header";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { setCurrentUser } from "./redux/user/userAction";
-import { selectCurrentUser } from "./redux/user/userSelectors";
-const App = ({ currentUser, setCurrentUser }) => {
-  useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
-    return () => {
-      unsubscribeFromAuth();
-    };
-    // eslint-disable-next-line
-  }, []);
+import { selectCurrentUser } from "./redux/user/userSelectors";
+import { checkUserSession } from "./redux/user/userAction";
+const App = ({ currentUser, checkUserSession }) => {
+  useEffect(() => {
+    checkUserSession();
+  }, [checkUserSession]);
+
   return (
     <div>
       <Header />
+      <div className="content"></div>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
@@ -55,7 +41,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  checkUserSession: () => dispatch(checkUserSession()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
